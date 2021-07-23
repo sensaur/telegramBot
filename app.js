@@ -54,21 +54,31 @@ bot.on("message", async (msg) => {
         console.error(err);
       });
     }
-    translate(messageWithoutBraces)
+    // translate(messageWithoutBraces)
 
-    const responseGif = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=YtYsTz4ywMjT88AWlUcanezxG2D3TQ35&tag=${text}&rating=g`, {
+    // рандом
+
+    // const responseGif = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=YtYsTz4ywMjT88AWlUcanezxG2D3TQ35&tag=${text}&rating=g`, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    // const parsedResponseGif = await responseGif.json();
+    // const replyMessageGif = await parsedResponseGif.data.url; 
+    // bot.sendMessage(chatId, `Гифка ===> ${replyMessageGif}`);
+
+    ///топчик
+
+    const responseGif = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=YtYsTz4ywMjT88AWlUcanezxG2D3TQ35&q=${text}&limit=1&offset=0&rating=g&lang=en`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
     const parsedResponseGif = await responseGif.json();
-    // console.log(parsedResponseGif);
-    const replyMessageGif = await parsedResponseGif.data.url;
-    bot.sendMessage(chatId, `Гифка ===> ${replyMessageGif}`);
-    
-    
-    
+    const replyMessageGif = await parsedResponseGif.data[0].url;
+    bot.sendMessage(chatId, `Гифка ===> ${replyMessageGif}`);    
   }
 }
 }
