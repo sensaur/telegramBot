@@ -32,7 +32,7 @@ bot.on("message", async (msg) => {
     const messageWithoutBraces = message.replace(/\[/g, "").replace(/\]/g, "")
 
     console.log(messageWithoutBraces) 
-    bot.sendMessage(chatId, messageWithoutBraces);
+    bot.sendMessage(chatId, `DIFINITION OF (IN ENGLISH) ${text} IS: ===> \n ${messageWithoutBraces}`);
     
     const responseGif = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=YtYsTz4ywMjT88AWlUcanezxG2D3TQ35&tag=${text}&rating=g`, {
       method: "GET",
@@ -41,7 +41,7 @@ bot.on("message", async (msg) => {
       },
     })
     const parsedResponseGif = await responseGif.json();
-    console.log(parsedResponseGif);
+    // console.log(parsedResponseGif);
     const replyMessageGif = await parsedResponseGif.data.url;
     bot.sendMessage(chatId, replyMessageGif);
 }}})
