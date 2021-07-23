@@ -31,9 +31,31 @@ bot.on("message", async (msg) => {
     const message = await parsedResponse.list[0].definition;
     const messageWithoutBraces = message.replace(/\[/g, "").replace(/\]/g, "")
 
-    console.log(messageWithoutBraces) 
-    bot.sendMessage(chatId, `DIFINITION OF (IN ENGLISH) ${text} IS: ===> \n ${messageWithoutBraces}`);
+    // console.log(messageWithoutBraces) 
+    bot.sendMessage(chatId, `\n Результаты поиска по запросу ${text} ===> \n ${messageWithoutBraces}`);
     
+    
+    async function translate (messageWithoutBraces) {
+      await fetch(`https://google-translate20.p.rapidapi.com/translate?text=${messageWithoutBraces}&tl=ru&sl=en`, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": "ffa75e36aemsh2585d2ac58f083fp12bc36jsn9e4796b7f85f",
+          "x-rapidapi-host": "google-translate20.p.rapidapi.com"
+        }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((message) => {
+        console.log(message.data.translation);
+        bot.sendMessage(chatId, `Перевод на русский ===> \n ${message.data.translation}` );
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }
+    translate(messageWithoutBraces)
+
     const responseGif = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=YtYsTz4ywMjT88AWlUcanezxG2D3TQ35&tag=${text}&rating=g`, {
       method: "GET",
       headers: {
@@ -43,14 +65,20 @@ bot.on("message", async (msg) => {
     const parsedResponseGif = await responseGif.json();
     // console.log(parsedResponseGif);
     const replyMessageGif = await parsedResponseGif.data.url;
-    bot.sendMessage(chatId, replyMessageGif);
-}}})
+    bot.sendMessage(chatId, `Гифка ===> ${replyMessageGif}`);
+    
+    
+    
+  }
+}
+}
+)
 
 // bot.on("message", async (msg) => {
-//   const text = msg.text;
-//   const chatId = msg.chat.id;
-//   const userName = msg.from.first_name;
-
+  //   const text = msg.text;
+  //   const chatId = msg.chat.id;
+  //   const userName = msg.from.first_name;
+  
 //   if (text) {
 //     if (text === "/start") {
 //       bot.sendMessage(chatId, `Привет ${userName}, введи на английском слово или фразу для поиска`)
