@@ -13,6 +13,7 @@ bot.on("message", async (msg) => {
   const text = msg.text;
   const chatId = msg.chat.id;
   const userName = msg.from.first_name;
+  console.log(text, chatId, userName)
 
   if (text) {
     if (text === "/start") {
@@ -31,7 +32,7 @@ bot.on("message", async (msg) => {
     const message = await parsedResponse.list[0].definition;
     const messageWithoutBraces = message.replace(/\[/g, "").replace(/\]/g, "")
 
-    // console.log(messageWithoutBraces) 
+    console.log(messageWithoutBraces) 
     bot.sendMessage(chatId, `\n Результаты поиска по запросу ${text} ===> \n ${messageWithoutBraces}`);
     
     
@@ -54,7 +55,7 @@ bot.on("message", async (msg) => {
         console.error(err);
       });
     }
-    // translate(messageWithoutBraces)
+    translate(messageWithoutBraces)
 
     // рандом
 
@@ -78,6 +79,7 @@ bot.on("message", async (msg) => {
     })
     const parsedResponseGif = await responseGif.json();
     const replyMessageGif = await parsedResponseGif.data[0].url;
+    console.log(replyMessageGif)
     bot.sendMessage(chatId, `Гифка ===> ${replyMessageGif}`);    
   }
 }
