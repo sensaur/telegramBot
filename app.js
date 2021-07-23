@@ -7,7 +7,6 @@ const fetch = require("node-fetch");
 
 bot.setMyCommands([
   { command: "/start", description: "Start" },
-  // { command: "/urban", description: "Urbandictionary" },
 ]);
 
 bot.on("message", async (msg) => {
@@ -21,32 +20,30 @@ bot.on("message", async (msg) => {
     }
 
     if (text != "/start") {
-    // const response = await fetch(`https://mashape-community-urban-dictionary.p.rapidapi.com/define?term=${text}`, {
-    // method: "GET",
-    // headers: {
-    //   "x-rapidapi-key": "ffa75e36aemsh2585d2ac58f083fp12bc36jsn9e4796b7f85f",
-    //   "x-rapidapi-host": "mashape-community-urban-dictionary.p.rapidapi.com"
-    // },
-    // })
-    // const parsedResponse = await response.json();
-    // // promiseAll(parsedResponse)
-    // // console.log(parsedResponse);
-    // const replyMesage = await parsedResponse.list[0].definition;
-    // // console.log(replyMesage);
-    // bot.sendMessage(chatId, replyMesage.replace('[', '').replace(']', ''));
+    const response = await fetch(`https://mashape-community-urban-dictionary.p.rapidapi.com/define?term=${text}`, {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "ffa75e36aemsh2585d2ac58f083fp12bc36jsn9e4796b7f85f",
+      "x-rapidapi-host": "mashape-community-urban-dictionary.p.rapidapi.com"
+    },
+    })
+    const parsedResponse = await response.json();
+    const message = await parsedResponse.list[0].definition;
+    const messageWithoutBraces = message.replace(/\[/g, "").replace(/\]/g, "")
+
+    console.log(messageWithoutBraces) 
+    bot.sendMessage(chatId, messageWithoutBraces);
     
-    const responseGif = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=YtYsTz4ywMjT88AWlUcanezxG2D3TQ35&q=${text}&limit=1&offset=0&rating=g&lang=en`, {
+    const responseGif = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=YtYsTz4ywMjT88AWlUcanezxG2D3TQ35&tag=${text}&rating=g`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
     const parsedResponseGif = await responseGif.json();
-    const replyMesageGif = await parsedResponseGif.data[0].url;
-    // console.log(parsedResponseGif);
-    console.log(replyMesageGif);
-    // bot.sendMessage(chatId, parsedResponseGif.data[0].images.original);
-    bot.sendMessage(chatId, replyMesageGif);
+    console.log(parsedResponseGif);
+    const replyMessageGif = await parsedResponseGif.data.url;
+    bot.sendMessage(chatId, replyMessageGif);
 }}})
 
 // bot.on("message", async (msg) => {
