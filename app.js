@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const telegramAPI = require("node-telegram-bot-api");
-const token = "1946473609:AAERq3PAGlCQSLIObbbXQ3w8698oNXoLdnU";
+const {token} = require("./token/token")
 const bot = new telegramAPI(token, {polling: true});
 
 bot.setMyCommands([
