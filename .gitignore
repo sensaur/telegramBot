@@ -1,3 +1,4 @@
 /node_modules
 token/token.js
 /token
+.DS_Store
