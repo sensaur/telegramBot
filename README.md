@@ -1,4 +1,4 @@
-Telegram bot allows you to request acronym definition, GIF, and translate it from English to Russian langauage.
+Telegram bot allows you to request acronym definition, GIF, and translate it from English to Russian language.
 
 API used:
 
