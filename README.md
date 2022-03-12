@@ -1,6 +1,5 @@
-Телеграмм бот позволяет запрашивать термины или сокращения, получать их расшифровку, гифку, а также перевод с английского на русский язык.
-
-В проекте использованы API:
+Telegram bot allows you to request acronym definition, GIF, and translate it from English to Russian langauage.
+API used:
 
 - Urban Dictionary
 - GIPHY
